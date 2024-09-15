@@ -1,0 +1,19 @@
+# Binary files
+/main
+
+# Go module files
+/vendor/
+
+# Env files
+.env
+
+# IDE files
+.vscode/
+
+# Logs and temp files
+*.log
+*.tmp
+
+# Temporary directories
+/tmp/
+.idea

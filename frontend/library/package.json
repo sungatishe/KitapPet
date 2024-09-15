@@ -1,0 +1,24 @@
+{
+  "name": "library",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve": "vue-cli-service serve --port 8090"
+  },
+  "dependencies": {
+    "@vue/cli-service": "^5.0.8",
+    "bootstrap": "^5.3.3",
+    "mdb-ui-kit": "^7.3.2",
+    "sweetalert2": "^11.14.0",
+    "vue": "^3.4.29",
+    "vue-router": "^4.4.3"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.5",
+    "vite": "^5.4.3"
+  }
+}

@@ -1,0 +1,71 @@
+services:
+  db:
+    container_name: composepostgres
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: sungat2004
+      POSTGRES_DB: postgres
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - mynetwork
+
+  redis:
+    image: redis:alpine
+    container_name: composeredis
+    ports:
+      - "6379:6379"
+    networks:
+      - mynetwork
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+    environment:
+      - ENV=production
+      - REDIS_HOST=redis:6379
+    networks:
+      - mynetwork
+
+  frontend:
+    build:
+      context: ./frontend/library
+      dockerfile: Dockerfile
+    ports:
+      - "8090:8090"
+    stdin_open: true # аналог -it для интерактивного режима
+    tty: true        # аналог -it для терминала
+    restart: no
+    volumes:
+      - ./frontend/library:/app
+    environment:
+      - NODE_ENV=production
+    networks:
+      - mynetwork
+
+
+
+networks:
+  mynetwork:
+    driver: bridge
