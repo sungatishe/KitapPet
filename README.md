@@ -1,0 +1,1 @@
+**KitapPet** is a simple web application built with Go and Vue.js for managing books. It includes user authentication, book CRUD operations via a REST API, Redis caching, and real-time data updates through WebSocket. The project uses PostgreSQL as the database and is containerized with Docker.
